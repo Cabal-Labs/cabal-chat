@@ -3,7 +3,7 @@ import React from "react";
 
 const Header = () => {
 	const redirectToGitHub = () => {
-		window.open("https://github.com/Cabal-Labs");
+		window.open("https://github.com/Cabal-Labs/cabal-chat");
 	};
 	const router = useRouter();
 

@@ -18,18 +18,18 @@ export default function Login() {
 
 
 	const fundSafe = async () => {
-		// const _provider = new ethers.providers.Web3Provider(web3AuthModalPack?.getProvider());
-		// const signer = _provider.getSigner();
+		const _provider = new ethers.providers.Web3Provider(web3AuthModalPack?.getProvider());
+		const signer = _provider.getSigner();
 
-		// const safeAmount = ethers.utils.parseUnits('0.5', 'ether').toHexString()
-		// const transactionParameters = {
-		// 	to: safeAddress,
-		// 	value: safeAmount
-		// }
+		const safeAmount = ethers.utils.parseUnits('0.5', 'ether').toHexString()
+		const transactionParameters = {
+			to: safeAddress,
+			value: safeAmount
+		}
 
-		// const tx = await signer.sendTransaction(transactionParameters);
-		// console.log('Fundraising.')
-		// console.log(`Deposit Transaction: https://goerli.basescan.org/tx/${tx.hash}`)
+		const tx = await signer.sendTransaction(transactionParameters);
+		console.log('Fundraising.')
+		console.log(`Deposit Transaction: https://goerli.basescan.org/tx/${tx.hash}`)
 
 		router.push("/chat")
 		

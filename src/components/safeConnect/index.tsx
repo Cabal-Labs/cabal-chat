@@ -17,7 +17,7 @@ export default function SafeConnect() {
     useEffect(() => {
         const initializeWeb3Auth = async () => {
             const options: Web3AuthOptions = {
-                clientId: "BFvnlMuato_-hAxXg_DFH4VVOeibwB9MWWgh4kGypPOvYQE3uZN7cAqMUBw_DVq-XWLqlGKh7O4ikZ2azPj_FAE",
+                clientId: "BHp-t-p3XsC5Zcim0d9WCnUKmmMUvkBQbnK-sQEpIc8wRX4A95OLh1kKmRsosrR6tRF1apqMXWrEnDlGz7l1wq8",
                 web3AuthNetwork: 'testnet',
                 chainConfig: {
                     chainNamespace: CHAIN_NAMESPACES.EIP155,
@@ -58,7 +58,12 @@ export default function SafeConnect() {
                 txServiceUrl: 'https://safe-transaction-base-testnet.safe.global/'
             });
 
+         
             await web3AuthModalPack.init({ options, adapters: [openloginAdapter], modalConfig });
+            
+            console.log("here2")
+
+            
             // @ts-expect-error
             setWeb3AuthModalPack(web3AuthModalPack);
             setLocalWeb3AuthModalPack(web3AuthModalPack);
