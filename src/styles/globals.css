@@ -1,0 +1,23 @@
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+    --foreground-rgb: 0, 0, 0; /* Dark text color */
+    --background-start-rgb: 214, 219, 220; /* Lighter start color for background */
+    --background-end-rgb: 255, 255, 255; /* White end color for background */
+}
+
+@media (prefers-color-scheme: light) {
+    :root {
+        --foreground-rgb: 255, 255, 255; /* Light text color for dark mode */
+        --background-start-rgb: 0, 0, 0; /* Darker start color for background in dark mode */
+        --background-end-rgb: 23, 23, 23; /* Slightly lighter end color for gradient in dark mode */
+    }
+}
+
+body {
+    color: rgb(var(--foreground-rgb));
+    background: linear-gradient(to bottom, transparent, rgb(var(--background-end-rgb))) rgb(var(--background-start-rgb));
+}
