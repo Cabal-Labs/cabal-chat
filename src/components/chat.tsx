@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowUp } from "@fortawesome/free-solid-svg-icons";
 
@@ -8,6 +8,12 @@ import Swap, { SwapType } from "./actions/swap";
 import CurrentBalance, { CurrentBalanceType } from "./actions/currentBalance";
 
 import LoadingDots from "./details/loading";
+
+import { signTransaction } from "../utils/signTransaction/index";
+
+import { Context } from "@/providers/provider";
+
+import { ethers } from "ethers";
 
 export type MessageListType =
   | MessageType
@@ -31,6 +37,8 @@ const Chat = () => {
       text: "Hi there! How can I help you with your web3 needs?",
     },
   ]);
+
+  const { safeAddress, web3AuthModalPack } = useContext(Context);
 
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -117,6 +125,28 @@ const Chat = () => {
         },
       };
       newer.push(a);
+
+      let approval = transaction.callDataForApproval;
+      let swapdata = transaction.calldata_swap;
+
+      console.log("approval", approval);
+      console.log("swapdata", swapdata);
+
+      const provider = new ethers.providers.Web3Provider(
+        web3AuthModalPack?.getProvider()
+      );
+
+      try {
+        await signTransaction(provider, safeAddress, approval);
+      } catch (e) {
+        console.error(e);
+      }
+
+      try {
+        await signTransaction(provider, safeAddress, swapdata);
+      } catch (e) {
+        console.error(e);
+      }
 
       setMessages(newer);
     } else {
