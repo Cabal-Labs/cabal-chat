@@ -26,7 +26,10 @@ const Chat = () => {
   ];
 
   const [messages, setMessages] = useState([
-    { type: "received", text: "Hi there! How can I help you today?" },
+    {
+      type: "received",
+      text: "Hi there! How can I help you with your web3 needs?",
+    },
   ]);
 
   const scrollToTop = () => {
