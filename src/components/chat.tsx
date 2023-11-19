@@ -68,6 +68,23 @@ const Chat = () => {
     return data;
   };
 
+  function isValidTransaction(inputString: any) {
+    try {
+      // Parse the input string into an object
+      const transaction = JSON.parse(inputString);
+
+      // Check for the existence of required fields
+      return (
+        "from_name" in transaction &&
+        "to_name" in transaction &&
+        "from_amount" in transaction
+      );
+    } catch (e) {
+      // If parsing fails, return false
+      return false;
+    }
+  }
+
   const handleSubmit = async () => {
     console.log("Message Sent:", inputValue);
     setLoading(true);
@@ -79,10 +96,33 @@ const Chat = () => {
 
     const result = await postMessage(inputValue);
 
-    let newer = messages;
+    //check if its a swap
+    if (isValidTransaction(result)) {
+      const transaction = JSON.parse(result);
 
-    newer.push({ type: "received", text: result });
-    setMessages(newer);
+      let newer = messages;
+      let a = {
+        type: "action",
+        action: "swap",
+        from: {
+          currency: transaction.from_name,
+          amount: transaction.from_amount,
+        },
+        to: {
+          currency: transaction.to_name,
+          amount: 10,
+        },
+      };
+      newer.push(a);
+
+      setMessages(newer);
+    } else {
+      let newer = messages;
+
+      newer.push({ type: "received", text: result });
+      setMessages(newer);
+    }
+
     setLoading(false);
   };
 
