@@ -22,12 +22,12 @@ export default function SafeConnect() {
     useEffect(() => {
         const initializeWeb3Auth = async () => {
             const options: Web3AuthOptions = {
-                clientId: 'BFvnlMuato_-hAxXg_DFH4VVOeibwB9MWWgh4kGypPOvYQE3uZN7cAqMUBw_DVq-XWLqlGKh7O4ikZ2azPj_FAE',
+                clientId: '',
                 web3AuthNetwork: 'testnet',
                 chainConfig: {
                     chainNamespace: CHAIN_NAMESPACES.EIP155,
                     chainId: '0x5',
-                    rpcTarget: `https://eth-goerli.g.alchemy.com/v2/1o7cVYTpLi-AKhI7Hyiu-mZCz-suyj7U`
+                    rpcTarget: ``
                 },
                 uiConfig: {
                     theme: 'dark',
