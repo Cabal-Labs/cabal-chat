@@ -14,11 +14,10 @@ import {SafeTransactionDataPartial,  } from '@safe-global/safe-core-sdk-types';
 import { Context } from "@/providers/provider";
 import { useRouter } from "next/navigation";
 
-const sign = async () => {
+const signTransaction = async (provider: any, safeAddress:any, transactionData:any) => {
     console.log("Start of sign function");
-    const _provider = new ethers.providers.Web3Provider(web3AuthModalPack.getProvider());
-    console.log("Provider obtained");
-    const signer = _provider.getSigner();
+
+    const signer = provider.getSigner();
     console.log("Signer obtained");
 
     const ethAdapter = new EthersAdapter({
@@ -26,7 +25,8 @@ const sign = async () => {
         signerOrProvider: signer
     });
     console.log("EthAdapter created");
-    const safeAddress:string = safeAuthSignInResponse.safes[0]
+
+    
     console.log("SafeAddress obtained");
 
     const safeSDK = await Safe.create({
@@ -38,18 +38,11 @@ const sign = async () => {
  
     console.log("SafeApiKit created");
 
-    const destination = '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045'
-    console.log("Destination set");
-    const amount = ethers.utils.parseUnits('0.005', 'ether').toString()
-    console.log("Amount set");
 
-    const safeTransactionData: SafeTransactionDataPartial = {
-    to: destination,
-    data: '0x',
-    value: amount
-    }
+    const safeTransactionData: SafeTransactionDataPartial = transactionData
+
     console.log("SafeTransactionData created");
-    // Create a Safe transaction with the provided parameters
+ 
     const safeTransaction = await safeSDK.createTransaction({ safeTransactionData })
     console.log("SafeTransaction created");
    
@@ -65,4 +58,8 @@ const sign = async () => {
     console.log('Transaction executed:')
     console.log(`https://goerli.etherscan.io/tx/${receipt?.transactionHash}`)
     
+}
+
+export {
+    signTransaction
 }

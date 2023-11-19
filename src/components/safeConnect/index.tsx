@@ -64,7 +64,7 @@ export default function SafeConnect() {
             });
 
             await web3AuthModalPack.init({ options, adapters: [openloginAdapter], modalConfig });
-
+            //@ts-expect-error
             setWeb3AuthModalPack(web3AuthModalPack);
             setLocalWeb3AuthModalPack(web3AuthModalPack);
         };
@@ -109,6 +109,7 @@ export default function SafeConnect() {
         }
 
         await localWeb3AuthModalPack.signOut();
+        // @ts-expect-error
         setEthProvider(null);
         //setSafeAuthSignInResponse(null);
         console.log("Logged out");

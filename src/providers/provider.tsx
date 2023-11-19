@@ -9,11 +9,19 @@ export const Context = createContext<DataType>({
 	userId: "",
 	setUserId: (string) => {},
 	web3AuthModalPack: null,
+	// @ts-expect-error
 	setWeb3AuthModalPack: () => {},
 	safeAddress: "",
-	setSafeAddress: (string) => {},
+	// @ts-expect-error
+	setSafeAddress: () => {},
 	ethProvider: null,
-	setEthProvider: (x) => {},
+	// @ts-expect-error
+	setEthProvider: () => {},
+	safeAuthSignInResponse: null,
+	// @ts-expect-error
+	setSafeAuthSignInResponse:() =>{}
+
+	
 });
 
 // const [web3AuthModalPack, setWeb3AuthModalPack] = useState<any>();
@@ -24,6 +32,7 @@ export const Context = createContext<DataType>({
 // 		useState<SafeEventEmitterProvider | null>(null);
 
 export const Provider = ({ children }: any) => {
+	// @ts-expect-error
 	const data: DataType = AllData();
 	return <Context.Provider value={data}>{children}</Context.Provider>;
 };

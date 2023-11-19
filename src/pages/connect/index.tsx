@@ -1,6 +1,7 @@
 
 import Header from "../../components/header";
 import { useRouter } from "next/navigation";
+import CreateSafe from "@/components/createSafe";
 
 export default function Login() {
 	const router = useRouter();
@@ -18,7 +19,7 @@ export default function Login() {
 					</p>
 				</div>
 				{/* Add your login form or additional content here */}
-				
+				<CreateSafe/>
 			</main>
 		</>
 	);

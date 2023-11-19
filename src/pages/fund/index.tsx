@@ -1,9 +1,38 @@
 
 import Header from "../../components/header";
 import { useRouter } from "next/navigation";
+import { ethers } from 'ethers';
+import { useContext } from "react";
+import { Context } from "@/providers/provider";
 
 export default function Login() {
+
+
 	const router = useRouter();
+	const {
+		web3AuthModalPack,
+		safeAuthSignInResponse,
+	} = useContext(Context);
+
+
+
+	const fundSafe = async () => {
+		const _provider = new ethers.providers.Web3Provider(web3AuthModalPack?.getProvider());
+		const signer = _provider.getSigner();
+
+		const safeAmount = ethers.utils.parseUnits('0.01', 'ether').toHexString()
+		const transactionParameters = {
+			to: safeAuthSignInResponse?.safes[0],
+			value: safeAmount
+		}
+
+		const tx = await signer.sendTransaction(transactionParameters);
+		console.log('Fundraising.')
+		console.log(`Deposit Transaction: https://goerli.etherscan.io/tx/${tx.hash}`)
+
+		router.push("/chat")
+		
+	}
 	return (
 		<>
 			<Header />
@@ -19,7 +48,7 @@ export default function Login() {
 				</div>
 				{/* Add your login form or additional content here */}
 				<button
-					onClick={() => router.push("/chat")}
+					onClick={() => {fundSafe();}}
 					className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4'
 				>
 					Fund

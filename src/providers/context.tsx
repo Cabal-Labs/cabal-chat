@@ -6,12 +6,15 @@ export type DataType = {
 	userId: string;
 	setUserId: (userId: string) => void;
 	// TODO: set correct types
-	web3AuthModalPack: null;
-	setWeb3AuthModalPack: (web3AuthModalPack:any) => {};
+	web3AuthModalPack: any;
+	setWeb3AuthModalPack: () => {};
 	safeAddress: "";
-	setSafeAddress: (addres:string) => {};
-	ethProvider: null;
-	setEthProvider: (provider:any) => {};
+	setSafeAddress: () => {};
+	ethProvider: SafeEventEmitterProvider | null;
+	setEthProvider: () => {};
+	safeAuthSignInResponse: any
+	setSafeAuthSignInResponse: () =>{};
+
 };
 const AllData = () => {
 	const [userId, setUserId] = useState("");
