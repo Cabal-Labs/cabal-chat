@@ -10,24 +10,19 @@ import { useRouter } from "next/navigation";
 
 
 export default function SafeConnect() {
-
     const [localWeb3AuthModalPack, setLocalWeb3AuthModalPack] = useState<any>();
     const router = useRouter();
-	const {
-		setWeb3AuthModalPack,
-		//setSafeAuthSignInResponse,
-		setEthProvider,
-	} = useContext(Context);
+    const { setWeb3AuthModalPack, setEthProvider } = useContext(Context);
 
     useEffect(() => {
         const initializeWeb3Auth = async () => {
             const options: Web3AuthOptions = {
-                clientId: '',
+                clientId: "BFvnlMuato_-hAxXg_DFH4VVOeibwB9MWWgh4kGypPOvYQE3uZN7cAqMUBw_DVq-XWLqlGKh7O4ikZ2azPj_FAE",
                 web3AuthNetwork: 'testnet',
                 chainConfig: {
                     chainNamespace: CHAIN_NAMESPACES.EIP155,
-                    chainId: '0x5',
-                    rpcTarget: ``
+                    chainId: '0x14a33',
+                    rpcTarget: "https://base-goerli.g.alchemy.com/v2/fAQnaYiRZDFfLh3Xqzv76_3LS4bKRkLN"
                 },
                 uiConfig: {
                     theme: 'dark',
@@ -60,25 +55,23 @@ export default function SafeConnect() {
             });
 
             const web3AuthModalPack = new Web3AuthModalPack({
-                txServiceUrl: 'https://safe-transaction-goerli.safe.global'
+                txServiceUrl: 'https://safe-transaction-base-testnet.safe.global/'
             });
 
             await web3AuthModalPack.init({ options, adapters: [openloginAdapter], modalConfig });
-            //@ts-expect-error
+            // @ts-expect-error
             setWeb3AuthModalPack(web3AuthModalPack);
             setLocalWeb3AuthModalPack(web3AuthModalPack);
         };
 
         initializeWeb3Auth();
     }, []);
+
     useEffect(() => {
         if (localWeb3AuthModalPack && localWeb3AuthModalPack.getProvider()) {
             login();
         }
     }, [localWeb3AuthModalPack]);
-
-
-
 
     const login = async () => {
         if (!localWeb3AuthModalPack) {
@@ -88,18 +81,15 @@ export default function SafeConnect() {
 
         const signInInfo = await localWeb3AuthModalPack.signIn();
         console.log('SIGN IN RESPONSE: ', signInInfo);
-        
 
         const userInfo = await localWeb3AuthModalPack.getUserInfo();
         console.log('USER INFO: ', userInfo);
-        //setSafeAuthSignInResponse(signInInfo);
 
-        if(signInInfo.safes[0]){
+        if (signInInfo.safes[0]) {
             router.push("/chat")
-        }else{
+        } else {
             router.push("/connect")
         }
-        
     };
 
     const logout = async () => {
@@ -111,26 +101,17 @@ export default function SafeConnect() {
         await localWeb3AuthModalPack.signOut();
         // @ts-expect-error
         setEthProvider(null);
-        //setSafeAuthSignInResponse(null);
         console.log("Logged out");
     };
-
-    
-
-    
-
-    
 
     return (
         <div>
             <button
-                onClick={()=>{login()}}
+                onClick={login}
                 className='mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg mr-1'
             >
                 Log In
             </button>
         </div>
-    )
-    
-   
-}   
+    );
+}

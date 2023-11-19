@@ -11,8 +11,7 @@ import SafeApiKit from '@safe-global/api-kit';
 
 import {SafeTransactionDataPartial,  } from '@safe-global/safe-core-sdk-types';
 
-import { Context } from "@/providers/provider";
-import { useRouter } from "next/navigation";
+
 
 const signTransaction = async (provider: any, safeAddress:any, transactionData:any) => {
     console.log("Start of sign function");
@@ -56,7 +55,7 @@ const signTransaction = async (provider: any, safeAddress:any, transactionData:a
     console.log("Receipt obtained");
 
     console.log('Transaction executed:')
-    console.log(`https://goerli.etherscan.io/tx/${receipt?.transactionHash}`)
+    console.log(`https://goerli.basescan.org/tx/${receipt?.transactionHash}`)
     
 }
 
